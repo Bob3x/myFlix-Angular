@@ -186,7 +186,7 @@ export class FetchApiDataService {
     // Get director
     getDirector(directorName: string): Observable<Movie["Director"]> {
         return this.http
-            .get<Movie["Director"]>(apiUrl + `director/${directorName}`, {
+            .get<Movie["Director"]>(apiUrl + `movies/Director/${directorName}`, {
                 headers: new HttpHeaders({
                     Authorization: "Bearer " + this.getToken()
                 })
@@ -205,7 +205,7 @@ export class FetchApiDataService {
     // Get genre
     getGenre(genreName: string): Observable<Movie["Genre"]> {
         return this.http
-            .get<Movie["Genre"]>(apiUrl + `genres/${genreName}`, {
+            .get<Movie["Genre"]>(apiUrl + `movies/Genre/${genreName}`, {
                 headers: new HttpHeaders({
                     Authorization: "Bearer " + this.getToken()
                 })
