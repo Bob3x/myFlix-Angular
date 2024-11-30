@@ -17,8 +17,8 @@ interface User {
 interface UserDetails {
     Username: string;
     Password: string;
-    Email?: string;
-    Birthday?: Date;
+    Email: string;
+    Birthday?: string;
 }
 
 interface AuthResponse {
@@ -58,19 +58,48 @@ export class FetchApiDataService {
     }
 
     // User registration
-    public userRegistration(userDetails: any): Observable<AuthResponse> {
-        console.log(userDetails);
-        return this.http.post<AuthResponse>(apiUrl + "users", userDetails).pipe(
-            map((response: AuthResponse): AuthResponse => {
-                localStorage.setItem("token", response.token);
-                localStorage.setItem("user", JSON.stringify(response.user));
-                return response;
-            }),
-            catchError((error) => {
-                console.error("Error:", error);
-                return throwError(() => error);
+    public userRegistration(userDetails: UserDetails): Observable<AuthResponse> {
+        const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+        if (!emailPattern.test(userDetails.Email)) {
+            return throwError(() => new Error("Invalid email format"));
+        }
+
+        // Ensure Username is provided and properly formatted
+        if (!userDetails.Username || userDetails.Username.trim().length < 1) {
+            return throwError(() => new Error("Username is required"));
+        }
+
+        const formattedData = {
+            Username: userDetails.Username.trim(),
+            Password: userDetails.Password,
+            Email: userDetails.Email.toLowerCase(),
+            Birthday: userDetails.Birthday
+                ? new Date(userDetails.Birthday).toISOString().split("T")[0]
+                : undefined
+        };
+
+        console.log("Sending formatted data:", formattedData);
+        return this.http
+            .post<AuthResponse>(apiUrl + "users", formattedData, {
+                headers: new HttpHeaders({
+                    "Content-Type": "application/json"
+                })
             })
-        );
+            .pipe(
+                map((response: AuthResponse): AuthResponse => {
+                    localStorage.setItem("token", response.token);
+                    localStorage.setItem("user", JSON.stringify(response.user));
+                    return response;
+                }),
+                catchError((error) => {
+                    console.error("Registration error:", error);
+                    if (error.error && Array.isArray(error.error)) {
+                        const messages = error.error.map((e: any) => e.msg).join(", ");
+                        return throwError(() => new Error(messages));
+                    }
+                    return throwError(() => error);
+                })
+            );
     }
 
     // User login
