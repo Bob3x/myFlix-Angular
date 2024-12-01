@@ -47,6 +47,9 @@ export class UserLoginFormComponent implements OnInit {
             next: (res: any) => {
                 console.log("Login response:", res);
 
+                localStorage.setItem("user", JSON.stringify(res.user));
+                localStorage.setItem("token", res.token);
+
                 this.dialogRef.close();
 
                 this.snackBar.open(`Login successful, Welcome ${res.user.Username}`, "OK", {
@@ -58,7 +61,6 @@ export class UserLoginFormComponent implements OnInit {
                     Password: this.userData.Password,
                     token: res.token
                 };
-                localStorage.setItem("user", JSON.stringify(user));
             },
             error: (error) => {
                 console.error("Login error:", error);
