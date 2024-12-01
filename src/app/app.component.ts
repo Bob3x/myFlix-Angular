@@ -4,6 +4,7 @@ import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { RouterOutlet } from "@angular/router";
 import { MatButtonModule } from "@angular/material/button";
 import { UserLoginFormComponent } from "./user-login-form/user-login-form.component";
+import { MovieCardComponent } from "./movie-card/movie-card.component";
 
 @Component({
     selector: "app-root",
@@ -26,6 +27,16 @@ export class AppComponent {
     openUserLoginDialog(): void {
         this.dialog.open(UserLoginFormComponent, {
             width: "520px"
+        });
+    }
+
+    openMoviesDialog(): void {
+        this.dialog.open(MovieCardComponent, {
+            width: "100%",
+            maxWidth: "960px",
+            height: "88vh",
+            panelClass: "movies-dialog",
+            autoFocus: false
         });
     }
 }
