@@ -1,7 +1,7 @@
-<!DOCTYPE html><html lang="en" data-beasties-container><head><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+export default `<!DOCTYPE html><html lang="en" data-beasties-container><head><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <meta charset="utf-8">
         <title>MyFlixAngularClient</title>
-        <base href="https://Bob3x.github.io/myFlix-Angular/">
+        <base href="/myFlix-Angular/">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/x-icon" href="favicon.ico">
         <style>@font-face{font-family:'Material Icons';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/materialicons/v142/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');}.material-icons{font-family:'Material Icons';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;}</style>
@@ -12,4 +12,4 @@
         <app-root ng-version="19.0.1" ngh="2" ng-server-context="ssg"><router-outlet></router-outlet><app-welcome-page _nghost-ng-c3848378167 ngh="1"><div _ngcontent-ng-c3848378167 class="main-page"><h1 _ngcontent-ng-c3848378167>Welcome to myFlix!</h1><div _ngcontent-ng-c3848378167 class="button-container"><button _ngcontent-ng-c3848378167 mat-raised-button color="primary" style="margin-right: 10px;" mat-ripple-loader-uninitialized mat-ripple-loader-class-name="mat-mdc-button-ripple" class="mdc-button mdc-button--raised mat-mdc-raised-button mat-primary _mat-animation-noopable mat-mdc-button-base" ngh="0" jsaction="click:;"><span class="mat-mdc-button-persistent-ripple mdc-button__ripple"></span><span class="mdc-button__label"> Sign Up </span><span class="mat-focus-indicator"></span><span class="mat-mdc-button-touch-target"></span></button><button _ngcontent-ng-c3848378167 mat-raised-button color="primary" style="margin: 10px;" mat-ripple-loader-uninitialized mat-ripple-loader-class-name="mat-mdc-button-ripple" class="mdc-button mdc-button--raised mat-mdc-raised-button mat-primary _mat-animation-noopable mat-mdc-button-base" ngh="0" jsaction="click:;"><span class="mat-mdc-button-persistent-ripple mdc-button__ripple"></span><span class="mdc-button__label"> Login </span><span class="mat-focus-indicator"></span><span class="mat-mdc-button-touch-target"></span></button></div></div></app-welcome-page><!----></app-root>
     <script src="polyfills-FFHMD2TL.js" type="module"></script><script src="main-T2Z4XQQT.js" type="module"></script>
 
-<script id="ng-state" type="application/json">{"__nghData__":[{"n":{"2":"hfn","5":"hfn2"}},{"n":{"5":"4fnf","7":"6fnf"}},{"c":{"0":[{"i":"c3848378167","r":1}]}}]}</script></body></html>
+<script id="ng-state" type="application/json">{"__nghData__":[{"n":{"2":"hfn","5":"hfn2"}},{"n":{"5":"4fnf","7":"6fnf"}},{"c":{"0":[{"i":"c3848378167","r":1}]}}]}</script></body></html>`;
