@@ -21,43 +21,8 @@
     .angular-logo {
         max-width: 9.2rem;
     } */
-
-    @media screen and (max-width: 650px) {
-        .content {
-            flex-direction: column;
-            width: max-content;
-        }
-
-        .divider {
-            height: 1px;
-            width: 100%;
-            background: var(--red-to-pink-to-purple-horizontal-gradient);
-            margin-block: 1.5rem;
-        }
-    }
 </style>
 
 <!-- app.component.html -->
-<div class="main-page">
-    <h1>Welcome to myFlix!</h1>
-    <div class="button-container">
-        <button
-            mat-raised-button
-            color="primary"
-            style="margin-right: 10px"
-            (click)="openUserRegistrationDialog()">
-            Sign Up
-        </button>
-        <button
-            mat-raised-button
-            style="margin: 10px"
-            color="primary"
-            (click)="openUserLoginDialog()">
-            Login
-        </button>
 
-        <button mat-raised-button color="primary" (click)="openMoviesDialog()">All Movies</button>
-    </div>
-</div>
-
-<router-outlet />
+<router-outlet></router-outlet>
