@@ -1,8 +1,0 @@
-{
-  "routes": {
-    "/myFlix-Angular": {},
-    "/myFlix-Angular/movies": {},
-    "/myFlix-Angular/profile": {},
-    "/myFlix-Angular/welcome": {}
-  }
-}
