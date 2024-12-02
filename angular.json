@@ -17,6 +17,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:application",
                     "options": {
+                        "baseHref": "/myFlix-Angular/",
                         "outputPath": "dist/my-flix-angular-client",
                         "index": "src/index.html",
                         "browser": "src/main.ts",
@@ -24,9 +25,13 @@
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
                         "assets": [
+                            "src/favicon.ico",
+                            "src/assets",
                             {
                                 "glob": "**/*",
-                                "input": "public"
+                                "input": "src",
+                                "output": "/",
+                                "ignore": ["**/*.ts"]
                             }
                         ],
                         "styles": [
@@ -45,8 +50,8 @@
                             "budgets": [
                                 {
                                     "type": "initial",
-                                    "maximumWarning": "500kB",
-                                    "maximumError": "1MB"
+                                    "maximumWarning": "1mb",
+                                    "maximumError": "2mb"
                                 },
                                 {
                                     "type": "anyComponentStyle",
@@ -86,9 +91,12 @@
                         "tsConfig": "tsconfig.spec.json",
                         "inlineStyleLanguage": "scss",
                         "assets": [
+                            "src/favicon.ico",
+                            "src/assets",
                             {
                                 "glob": "**/*",
-                                "input": "public"
+                                "input": "src",
+                                "output": "/assets"
                             }
                         ],
                         "styles": [
@@ -96,6 +104,30 @@
                             "src/styles.scss"
                         ],
                         "scripts": []
+                    }
+                },
+                "deploy": {
+                    "builder": "angular-cli-ghpages:deploy",
+                    "options": {
+                        "baseHref": "/myFlix-Angular/",
+                        "name": "Your Name",
+                        "email": "your.email@example.com",
+                        "repo": "https://github.com/Bob3x/myFlix-Angular.git",
+                        "branch": "gh-pages",
+                        "silent": false,
+                        "message": "Deploy to GitHub pages",
+                        "budgets": [
+                            {
+                                "type": "initial",
+                                "maximumWarning": "1mb",
+                                "maximumError": "2mb"
+                            },
+                            {
+                                "type": "anyComponentStyle",
+                                "maximumWarning": "2kb",
+                                "maximumError": "4kb"
+                            }
+                        ]
                     }
                 }
             }
