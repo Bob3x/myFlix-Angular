@@ -110,8 +110,8 @@
                     "builder": "angular-cli-ghpages:deploy",
                     "options": {
                         "baseHref": "/myFlix-Angular/",
-                        "name": "Your Name",
-                        "email": "your.email@example.com",
+                        "name": "Bob3x",
+                        "email": "bob3xx@protonmail.com",
                         "repo": "https://github.com/Bob3x/myFlix-Angular.git",
                         "branch": "gh-pages",
                         "silent": false,
