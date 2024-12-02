@@ -1,27 +1,28 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { Component, OnInit, Inject } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { CommonModule } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialogRef, MatDialogModule } from "@angular/material/dialog";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
-import { Router } from "@angular/router";
+import { RouterModule, Router } from "@angular/router";
 import { FetchApiDataService } from "../services/fetch-api-data.service";
 
 @Component({
     selector: "app-user-login-form",
     standalone: true,
     imports: [
-        CommonModule,
-        FormsModule,
+        CommonModule, // Add CommonModule
+        FormsModule, // Change to NgForm
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
         MatDialogModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        RouterModule
     ],
     templateUrl: "./user-login-form.component.html",
     styleUrl: "./user-login-form.component.scss"
@@ -55,6 +56,7 @@ export class UserLoginFormComponent implements OnInit {
                 this.snackBar.open(`Login successful, Welcome ${res.user.Username}`, "OK", {
                     duration: 2000
                 });
+                this.router.navigate(["movies"]);
                 let user = {
                     ...res.user,
                     id: res.user._id,
