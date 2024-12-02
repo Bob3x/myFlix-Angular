@@ -1,3 +1,15 @@
+/**
+ * User Profile Component
+ * @file user-profile.component.ts
+ * @description Manages user profile data and favorite movies
+ */
+
+/**
+ * Removes a movie from user's favorites
+ * @method deleteFavoriteMovie
+ * @param {string} movieId - ID of movie to remove
+ * @description Updates both API and local state when removing favorites
+ */
 import { Component, OnInit, PLATFORM_ID, Inject } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { FetchApiDataService } from "../services/fetch-api-data.service";
@@ -16,12 +28,23 @@ import { MatGridListModule } from "@angular/material/grid-list";
 import { User } from "../models/user";
 import { NavbarComponent } from "../navbar/navbar.component";
 
+/**
+ * Movie interface for favorite movies
+ * @interface Movie
+ * @description Defines structure for movie data
+ */
 interface Movie {
     _id: string;
     Title: string;
     ImagePath: string;
 }
 
+/**
+ * User Profile Component
+ * @class UserProfileComponent
+ * @implements OnInit
+ * @description Handles user profile management and favorite movies display
+ */
 @Component({
     selector: "app-user-profile",
     standalone: true,
@@ -44,6 +67,12 @@ interface Movie {
 })
 export class UserProfileComponent implements OnInit {
     hidePassword = true;
+
+    /**
+     * User profile form data
+     * @property userData
+     * @description Stores current user profile information
+     */
     userData = {
         Username: "",
         Email: "",
@@ -54,6 +83,14 @@ export class UserProfileComponent implements OnInit {
 
     favoriteMovies: Movie[] = [];
 
+    /**
+     * Creates an instance of UserProfileComponent
+     * @constructor
+     * @param fetchApiData - Service for API calls
+     * @param platformId - Platform identifier for SSR compatibility
+     * @param snackBar - Material snackbar for notifications
+     * @param router - Angular router service
+     */
     constructor(
         private fetchApiData: FetchApiDataService,
         @Inject(PLATFORM_ID) private platformId: Object,
@@ -61,6 +98,11 @@ export class UserProfileComponent implements OnInit {
         private router: Router
     ) {}
 
+    /**
+     * Initializes component
+     * @method ngOnInit
+     * @description Loads user data from localStorage and fetches favorite movies
+     */
     ngOnInit(): void {
         if (isPlatformBrowser(this.platformId)) {
             const storedUser = localStorage.getItem("user");
@@ -83,6 +125,12 @@ export class UserProfileComponent implements OnInit {
         }
     }
 
+    /**
+     * Fetches full movie details for favorite movies
+     * @method getFavoriteMovies
+     * @param {string[]} movieIds - Array of favorite movie IDs
+     * @description Retrieves complete movie information for user's favorites
+     */
     getFavoriteMovies(movieIds: string[]): void {
         this.fetchApiData.getAllMovies().subscribe({
             next: (movies: Movie[]) => {
@@ -93,6 +141,13 @@ export class UserProfileComponent implements OnInit {
             }
         });
     }
+
+    /**
+     * Removes movie from favorites
+     * @method deleteFavoriteMovie
+     * @param {string} movieId - ID of movie to remove
+     * @description Updates both API and local state when removing favorites
+     */
 
     deleteFavoriteMovie(movieId: string): void {
         if (isPlatformBrowser(this.platformId)) {
@@ -128,6 +183,12 @@ export class UserProfileComponent implements OnInit {
         }
     }
 
+    /**
+     * Removes movie from favorites
+     * @method deleteFavoriteMovie
+     * @param {string} movieId - ID of movie to remove
+     * @description Updates both API and local state when removing favorites
+     */
     updateUser(): void {
         if (!this.userData.Username) {
             this.snackBar.open("Username is required", "OK", {
@@ -165,6 +226,12 @@ export class UserProfileComponent implements OnInit {
         });
     }
 
+    /**
+     * Deletes user account
+     * @method deleteUser
+     * @description Handles account deletion with confirmation
+     */
+
     deleteUser(): void {
         if (!this.userData.Username) {
             this.snackBar.open("Username not found", "OK", {
@@ -192,6 +259,11 @@ export class UserProfileComponent implements OnInit {
         }
     }
 
+    /**
+     * Handles user logout
+     * @method logout
+     * @description Clears local storage and redirects to welcome page
+     */
     logout(): void {
         if (isPlatformBrowser(this.platformId)) {
             //Clear all stored data

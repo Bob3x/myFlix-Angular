@@ -7,6 +7,11 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { isPlatformBrowser } from "@angular/common";
 
+/**
+ * Navigation bar component that provides routing and user actions.
+ * @remarks
+ * This component is used across the application to provide consistent navigation.
+ */
 @Component({
     selector: "app-navbar",
     standalone: true,
@@ -15,16 +20,30 @@ import { isPlatformBrowser } from "@angular/common";
     styleUrl: "./navbar.component.scss"
 })
 export class NavbarComponent {
+    /**
+     * Creates an instance of NavbarComponent.
+     * @param snackBar - Material SnackBar for displaying notifications
+     * @param platformId - Platform ID for checking browser environment
+     * @param router - Router for navigation
+     */
     constructor(
         private snackBar: MatSnackBar,
         @Inject(PLATFORM_ID) private platformId: Object,
         private router: Router
     ) {}
 
+    /**
+     * Checks if current route is movies page
+     * @returns boolean indicating if current route is /movies
+     */
     isMoviesRoute(): boolean {
         return this.router.url === "/movies";
     }
 
+    /**
+     * Handles user logout
+     * Clears local storage and redirects to welcome page
+     */
     logout(): void {
         if (isPlatformBrowser(this.platformId)) {
             //Clear all stored data

@@ -1,3 +1,8 @@
+/**
+ * User Login Form Component
+ * @file user-login-form.component.ts
+ * @description Handles user authentication through login form
+ */
 import { Component, OnInit, Inject } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
@@ -10,6 +15,12 @@ import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { RouterModule, Router } from "@angular/router";
 import { FetchApiDataService } from "../services/fetch-api-data.service";
 
+/**
+ * User Login Form Component
+ * @class UserLoginFormComponent
+ * @implements OnInit
+ * @description Provides form interface for user authentication
+ */
 @Component({
     selector: "app-user-login-form",
     standalone: true,
@@ -28,11 +39,25 @@ import { FetchApiDataService } from "../services/fetch-api-data.service";
     styleUrl: "./user-login-form.component.scss"
 })
 export class UserLoginFormComponent implements OnInit {
+    /**
+     * Login form data
+     * @property userData
+     * @type {Object}
+     * @description Stores username and password for authentication
+     */
     userData = {
         Username: "",
         Password: ""
     };
 
+    /**
+     * Creates an instance of UserLoginFormComponent
+     * @constructor
+     * @param fetchApiData - Service for API calls
+     * @param dialogRef - Reference to the dialog containing this form
+     * @param snackBar - Service for showing notifications
+     * @param router - Angular router service
+     */
     constructor(
         public fetchApiData: FetchApiDataService,
         public dialogRef: MatDialogRef<UserLoginFormComponent>,
@@ -40,8 +65,14 @@ export class UserLoginFormComponent implements OnInit {
         private router: Router
     ) {}
 
+    /** Lifecycle hook for component initialization */
     ngOnInit(): void {}
 
+    /**
+     * Handles user login
+     * @method logInUser
+     * @description Authenticates user and stores session data
+     */
     logInUser(): void {
         console.log("Login attempt width userData:", this.userData);
         this.fetchApiData.userLogin(this.userData).subscribe({

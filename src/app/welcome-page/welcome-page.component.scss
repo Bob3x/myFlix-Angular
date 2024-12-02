@@ -1,3 +1,9 @@
+/**
+ * Welcome page styles
+ * @file welcome-page.component.scss
+ * @description Styling for the application landing page
+ */
+
 .main-page {
     display: flex;
     flex-direction: column;
@@ -7,6 +13,11 @@
     padding: 30px;
 }
 
+/**
+ * Welcome heading styles
+ * @selector h1
+ * @description Large, centered heading with shadow effect
+ */
 h1 {
     color: #ffffff;
     font-size: 3.5em;
@@ -16,6 +27,11 @@ h1 {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
+/**
+ * Button styles
+ * @selector button
+ * @description Common button styling with hover effects and transitions
+ */
 button {
     min-width: 120px;
     height: 45px;
@@ -26,12 +42,21 @@ button {
     transition: all 0.2s ease;
     vertical-align: middle;
 
+    /** 
+     * Button hover effects
+     * @description Scale up and add shadow on hover
+     */
     &:hover {
         transform: scale(1.05);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 }
 
+/**
+ * Button container styles
+ * @selector button-container
+ * @description Common flex-box styling with @media break points
+ */
 .button-container {
     display: flex;
     gap: 20px;

@@ -1,3 +1,8 @@
+/**
+ * User Registration Form Component
+ * @file user-registration-form.component.ts
+ * @description Handles new user registration with form validation and API integration
+ */
 import { Component, OnInit, Inject } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { FetchApiDataService } from "../services/fetch-api-data.service";
@@ -9,6 +14,11 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatDialogRef } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 
+/**
+ * Interface for API registration response
+ * @interface RegistrationResponse
+ * @description Defines the structure of the registration API response
+ */
 interface RegistrationResponse {
     user: {
         Username: string;
@@ -18,6 +28,12 @@ interface RegistrationResponse {
     token: string;
 }
 
+/**
+ * User Registration Form Component
+ * @class UserRegistrationFormComponent
+ * @implements OnInit
+ * @description Provides form interface for new user registration
+ */
 @Component({
     selector: "app-user-registration-form",
     imports: [FormsModule, MatInputModule, MatButtonModule, MatCardModule, MatFormFieldModule],
@@ -26,6 +42,11 @@ interface RegistrationResponse {
     styleUrl: "./user-registration-form.component.scss"
 })
 export class UserRegistrationFormComponent implements OnInit {
+    /**
+     * User registration form data
+     * @property userData
+     * @type {Object}
+     */
     userData = {
         Username: "",
         Password: "",
@@ -33,6 +54,14 @@ export class UserRegistrationFormComponent implements OnInit {
         Birthday: ""
     };
 
+    /**
+     * Creates an instance of UserRegistrationFormComponent
+     * @constructor
+     * @param fetchApiData - Service for API calls
+     * @param dialogRef - Reference to the dialog containing this form
+     * @param snackBar - Service for showing notifications
+     * @param router - Angular router service
+     */
     constructor(
         private fetchApiData: FetchApiDataService,
         private snackBar: MatSnackBar,
@@ -40,6 +69,7 @@ export class UserRegistrationFormComponent implements OnInit {
         private router: Router
     ) {}
 
+    /** Lifecycle hook for component initialization */
     ngOnInit(): void {}
 
     registerUser(): void {

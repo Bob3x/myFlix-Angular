@@ -1,5 +1,17 @@
+/**
+ * User Profile Component styles
+ * @file user-profile.component.scss
+ * @description Styles for user profile management and favorite movies display
+ */
+
+/** Import breakpoint mixins for responsive design */
 @import "../styles/breakpoints";
 
+/**
+ * Main profile container layout
+ * @selector .profile-container
+ * @description Flexbox container for profile form and favorites section
+ */
 .profile-container {
     position: relative;
     padding: 40px;
@@ -24,6 +36,11 @@
     }
 }
 
+/**
+ * Material card customization
+ * @selector mat-card
+ * @description Base styles for Material card components
+ */
 mat-card {
     max-width: 400px;
     margin: 10px auto;

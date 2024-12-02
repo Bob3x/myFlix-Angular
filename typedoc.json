@@ -1,0 +1,14 @@
+{
+    "$schema": "https://typedoc.org/schema.json",
+    "entryPointStrategy": "expand",
+    "entryPoints": ["src/app"],
+    "out": "docs",
+    "name": "MyFlix Angular Documentation",
+    "exclude": ["**/*.spec.ts", "**/*.spec.tsx", "**/node_modules/**", "**/dist/**"],
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "includeVersion": true,
+    "categorizeByGroup": true,
+    "categoryOrder": ["Components", "Services", "Models", "Interfaces"],
+    "tsconfig": "./tsconfig.json"
+}

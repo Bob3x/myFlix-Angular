@@ -1,3 +1,16 @@
+/**
+ * Movie Card Component
+ * @file movie-card.component.ts
+ * @description Main component for displaying movie grid and handling movie interactions
+ */
+
+// Import statements...
+
+/**
+ * Movie interface
+ * @interface Movie
+ * @description Defines the structure for movie data including genre and director information
+ */
 import { Component, OnInit, PLATFORM_ID, Inject } from "@angular/core";
 import { User } from "../models/user"; // Adjust the path as necessary
 import { FetchApiDataService } from "../services/fetch-api-data.service";
@@ -31,6 +44,12 @@ interface Movie {
     isFavorite?: boolean;
 }
 
+/**
+ * Movie Card Component
+ * @class MovieCardComponent
+ * @implements OnInit
+ * @description Displays grid of movie cards and handles movie-related actions
+ */
 @Component({
     selector: "app-movie-card",
     standalone: true,
@@ -53,8 +72,16 @@ interface Movie {
 })
 export class MovieCardComponent implements OnInit {
     movies: Movie[] = [];
-    isDarkTheme = false;
 
+    /**
+     * Creates an instance of MovieCardComponent
+     * @constructor
+     * @param fetchMovies - Service for API calls
+     * @param platformId - Platform identifier for SSR compatibility
+     * @param snackBar - Material snackbar for notifications
+     * @param dialog - Material dialog service
+     * @param router - Angular router service
+     */
     constructor(
         public fetchMovies: FetchApiDataService,
         @Inject(PLATFORM_ID) private platformId: Object,
@@ -69,10 +96,20 @@ export class MovieCardComponent implements OnInit {
         this.themeService.toggleTheme();
     } */
 
+    /**
+     * Initializes component
+     * @method ngOnInit
+     * @description Loads movies and sets favorite status
+     */
     ngOnInit(): void {
         this.getMovies();
     }
 
+    /**
+     * Fetches movies from API
+     * @method getMovies
+     * @description Gets all movies and marks favorites based on user data
+     */
     getMovies(): void {
         if (isPlatformBrowser(this.platformId)) {
             try {
@@ -111,6 +148,11 @@ export class MovieCardComponent implements OnInit {
         }
     }
 
+    /**
+     * Opens movie genre dialog
+     * @method openGenre
+     * @param {Movie} movie - Movie to show genre for
+     */
     openGenre(movie: Movie): void {
         this.dialog.open(MovieDetailsDialogComponent, {
             data: {
@@ -120,6 +162,12 @@ export class MovieCardComponent implements OnInit {
             width: "400px"
         });
     }
+
+    /**
+     * Opens movie director dialog
+     * @method openDirector
+     * @param {Movie} movie - Movie to show director for
+     */
     openDirector(movie: Movie): void {
         this.dialog.open(MovieDetailsDialogComponent, {
             data: {
@@ -130,6 +178,11 @@ export class MovieCardComponent implements OnInit {
         });
     }
 
+    /**
+     * Opens movie description dialog
+     * @method openDescription
+     * @param {Movie} movie - Movie to show description for
+     */
     openDescription(movie: Movie): void {
         this.dialog.open(MovieDetailsDialogComponent, {
             data: {
@@ -140,6 +193,11 @@ export class MovieCardComponent implements OnInit {
         });
     }
 
+    /**
+     * Handles adding/removing movies from favorites
+     * @method modifyFavoriteMovies
+     * @param {Movie} movie - Movie to modify favorite status
+     */
     modifyFavoriteMovies(movie: Movie): void {
         //Get current user
         const userString = localStorage.getItem("user");
@@ -184,6 +242,11 @@ export class MovieCardComponent implements OnInit {
         }
     }
 
+    /**
+     * Handles user logout
+     * @method logout
+     * @description Clears storage and redirects to welcome page
+     */
     logout(): void {
         if (isPlatformBrowser(this.platformId)) {
             //Clear all stored data

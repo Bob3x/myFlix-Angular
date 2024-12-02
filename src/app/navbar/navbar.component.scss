@@ -1,5 +1,17 @@
+// navbar.component.scss
+/**
+ * Styles for the navigation bar component
+ * @styles
+ */
+
+/** Import breakpoint mixins for responsive design */
 @import "../styles/breakpoints";
 
+/** 
+ * Brand text styling
+ * @selector .brand-text
+ * @description Styles for the myFlix logo/text including hover effects
+ */
 .brand-text {
     cursor: pointer;
     font-size: 1.4rem;
@@ -11,9 +23,14 @@
     }
 }
 
+/**
+ * Menu icon styling
+ * @selector .toolbar-icon
+ * @description Styles for the menu hamburger icon including rotation animation
+ */
 .toolbar-icon {
     font-size: 30px;
-    height: 30 px;
+    height: 30px; // Fixed typo in px spacing
     width: 30px;
     line-height: 30px;
     transition: transform 0.2s ease;
@@ -23,6 +40,11 @@
     }
 }
 
+/**
+ * Toolbar container styling
+ * @selector mat-toolbar
+ * @description Main navigation bar layout and positioning
+ */
 mat-toolbar {
     height: 64px;
     padding: 0 24px;
