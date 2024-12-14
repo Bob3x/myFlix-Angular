@@ -48,3 +48,45 @@ body {
     padding: 20px;
     box-sizing: border-box;
 }
+/* Global spinner styles */
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+    width: 100%;
+    position: relative;
+
+    &--overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.8);
+        z-index: 999;
+    }
+
+    &--inline {
+        margin: 1rem 0;
+    }
+
+    .mat-mdc-progress-spinner {
+        animation: fadeIn 0.3s ease-in;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Optional: disable content while loading */
+.content-loading {
+    opacity: 0.6;
+    pointer-events: none;
+}

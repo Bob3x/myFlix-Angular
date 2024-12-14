@@ -5,6 +5,7 @@
  */
 import { Component } from "@angular/core";
 import { RouterModule } from "@angular/router";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 /**
  * Root component configuration
@@ -30,7 +31,7 @@ import { RouterModule } from "@angular/router";
      * @property imports
      * @type {Array}
      */
-    imports: [RouterModule],
+    imports: [RouterModule, MatProgressSpinnerModule],
     /**
      * Path to component's HTML template
      * @property templateUrl

@@ -10,7 +10,10 @@
         <mat-card-title>Sign Up!</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <form>
+        <div class="spinner-container" *ngIf="isLoading">
+            <mat-spinner diameter="50"></mat-spinner>
+        </div>
+        <form [ngClass]="{ 'content-loading': isLoading }">
             <mat-form-field>
                 <input
                     matInput

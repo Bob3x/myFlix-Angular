@@ -7,22 +7,10 @@
 import { HttpClient, HttpHeaders, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
-import { catchError, map } from "rxjs/operators";
+import { catchError, map, tap, switchMap } from "rxjs/operators";
+import { User } from "../models/user";
 
 const apiUrl = "https://my-movies-flix-app-56f9661dc035.herokuapp.com/";
-
-/**
- * User interface defining user data structure
- * @interface User
- */
-interface User {
-    _id: string;
-    Username: string;
-    Password: string;
-    Email: string;
-    Birthday: Date;
-    FavoriteMovies: Array<string>;
-}
 
 /**
  * User registration/update details interface
@@ -77,6 +65,40 @@ export class FetchApiDataService {
     constructor(private http: HttpClient) {}
 
     /**
+     * Register new user
+     * @method userRegistration
+     * @param {UserDetails} userDetails - User registration data
+     * @returns {Observable<AuthResponse>} Observable of auth response with token
+     * @description Registers new user and returns authentication token
+     */
+    // After successful registration
+    /*private handleAuthResponse(response: AuthResponse): void {
+        if (!response?.user || !response?.token) {
+            throw new Error("Invalid authentication response");
+        }
+
+        localStorage.setItem("user", JSON.stringify(response.user));
+        localStorage.setItem("token", response.token);
+    }*/
+
+    private handleError(error: HttpErrorResponse): Observable<never> {
+        console.group("API Error Details");
+        if (error.error instanceof ErrorEvent) {
+            // Client-side error
+            console.error("Client Error:", error.error.message);
+        } else {
+            // Server-side error
+            console.error("Status Code:", error.status);
+            console.error("Status Text:", error.statusText);
+            console.error("Error:", error.error);
+            console.error("Message:", error.message);
+        }
+        console.groupEnd();
+
+        // Return an observable with a user-facing error message
+        return throwError(() => new Error("Something bad happened; please try again later."));
+    }
+    /**
      * Helper method to get stored JWT token
      * @private
      * @returns {string} The stored JWT token
@@ -90,55 +112,9 @@ export class FetchApiDataService {
         return token;
     }
 
-    /**
-     * Register new user
-     * @method userRegistration
-     * @param {UserDetails} userDetails - User registration data
-     * @returns {Observable<AuthResponse>} Observable of auth response with token
-     * @description Registers new user and returns authentication token
-     */
-    public userRegistration(userDetails: UserDetails): Observable<AuthResponse> {
-        const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-        if (!emailPattern.test(userDetails.Email)) {
-            return throwError(() => new Error("Invalid email format"));
-        }
-
-        // Ensure Username is provided and properly formatted
-        if (!userDetails.Username || userDetails.Username.trim().length < 1) {
-            return throwError(() => new Error("Username is required"));
-        }
-
-        const formattedData = {
-            Username: userDetails.Username.trim(),
-            Password: userDetails.Password,
-            Email: userDetails.Email.toLowerCase(),
-            Birthday: userDetails.Birthday
-                ? new Date(userDetails.Birthday).toISOString().split("T")[0]
-                : undefined
-        };
-
-        console.log("Sending formatted data:", formattedData);
-        return this.http
-            .post<AuthResponse>(apiUrl + "users", formattedData, {
-                headers: new HttpHeaders({
-                    "Content-Type": "application/json"
-                })
-            })
-            .pipe(
-                map((response: AuthResponse): AuthResponse => {
-                    localStorage.setItem("token", response.token);
-                    localStorage.setItem("user", JSON.stringify(response.user));
-                    return response;
-                }),
-                catchError((error) => {
-                    console.error("Registration error:", error);
-                    if (error.error && Array.isArray(error.error)) {
-                        const messages = error.error.map((e: any) => e.msg).join(", ");
-                        return throwError(() => new Error(messages));
-                    }
-                    return throwError(() => error);
-                })
-            );
+    // Update userRegistration method
+    public userRegistration(userDetails: UserDetails): Observable<any> {
+        return this.http.post(`${apiUrl}users`, userDetails).pipe(catchError(this.handleError));
     }
 
     /**
@@ -148,17 +124,28 @@ export class FetchApiDataService {
      * @returns {Observable<AuthResponse>} Observable of auth response with token
      * @description Authenticates user and returns token
      */
-    public userLogin(userDetails: any): Observable<AuthResponse> {
-        return this.http.post<AuthResponse>(apiUrl + "login", userDetails).pipe(
-            map((response: AuthResponse): AuthResponse => {
-                localStorage.setItem("token", response.token);
+    // Updated login method
+    public userLogin(userData: { Username: string; Password: string }): Observable<any> {
+        return this.http.post(`${apiUrl}login`, userData).pipe(
+            map((response: any) => {
+                console.log("Raw login response:", response);
+
+                // Verify response structure
+                if (!response || !response.user) {
+                    throw new Error("Invalid response format");
+                }
+
+                // Store user data
                 localStorage.setItem("user", JSON.stringify(response.user));
+                localStorage.setItem("token", response.token);
+
+                // Verify storage worked
+                const storedUser = localStorage.getItem("user");
+                console.log("Stored user:", storedUser);
+
                 return response;
             }),
-            catchError((error) => {
-                console.error("Error:", error);
-                return throwError(() => error);
-            })
+            catchError(this.handleError)
         );
     }
 
